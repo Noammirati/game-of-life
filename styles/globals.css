@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --size: 100;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -18,10 +19,33 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+.grid {
+  margin: 1rem;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(var(--foreground-rgb));
+}
+
+.grid___line {
+  display: flex;
+  flex: 1;
+}
+
+.grid__cell {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.grid__cell.dead {
+  background-color: rgb(var(--background-start-rgb));
+}
+
+.grid__cell.alive {
+  background-color: rgb(var(--foreground-rgb));;
 }
