@@ -47,5 +47,13 @@ body {
 }
 
 .grid__cell.alive {
-  background-color: rgb(var(--foreground-rgb));;
+  background-color: green;;
+}
+
+.grid_cell.green {
+  color : blue;
+}
+
+.grid_cell.red {
+  color : red;
 }
