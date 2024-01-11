@@ -32,6 +32,12 @@ export default class LogicalGrid {
         return LogicalGrid.instance;
     }
 
+    public update(){
+        console.log("grid update");
+        this.cells.forEach((cell) => cell.computeNextState());
+        this.frameIndex++;
+    }
+
     public reset(state?: CellState) {
         console.log('grid reset');
         this.cells.forEach((cell) => cell.reset(state));

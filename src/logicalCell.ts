@@ -26,16 +26,21 @@ export default class LogicalCell {
             this.initNeighbors();
         }
         let aliveNs = this.computeAliveNeighborsNumber();
+        console.log(this.getKey(), aliveNs);
         if (this.getLastComputedState() == CellState.alive) {
             if (aliveNs < 2 || aliveNs > 3) {
+                console.log("dying");
                 this.states.push(CellState.dead)
             } else {
+                console.log("stay alive");
                 this.states.push(CellState.alive)
             }
         } else {
             if (aliveNs === 3) {
+                console.log("aliving");
                 this.states.push(CellState.alive);
             } else {
+                console.log("staying dead");
                 this.states.push(CellState.dead)
             }
         }
@@ -53,7 +58,7 @@ export default class LogicalCell {
         return COORDS_TO_KEY(this.x, this.y);
     }
 
-    private computeAliveNeighborsNumber() {
+    public computeAliveNeighborsNumber() {
         if (this.neighbors.length <= 0) {
             this.initNeighbors();
         }

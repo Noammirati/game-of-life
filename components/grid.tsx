@@ -23,6 +23,7 @@ export default function Grid() {
 
     function update() {
         console.log("UPDATE");
+        grid.update();
         changeChildState();
     }
 
