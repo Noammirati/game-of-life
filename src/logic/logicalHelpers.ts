@@ -1,4 +1,4 @@
-export const SIZE = 10;
+export const SIZE = 50;
 export const KEY_FORMAT = 'x:y';
 export const COORDS_TO_KEY = (x: number, y: number) => KEY_FORMAT.replace('x', `${x}`).replace('y', `${y}`);
 
