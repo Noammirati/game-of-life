@@ -49,11 +49,25 @@ export default class LogicalGrid {
         return nextFrame;
     }
 
-    public reset(state: CellState) {
-        console.log('grid reset');
-        this.cells.forEach((cell) => cell.reset(state));
+    public reset(){
+        const firstFrame = this.frameStates[0];
+        
+        this.cells.forEach((cell) => cell.reset());
         this.frameIndex = 0;
         this.frameStates = new Array();
+        this.frameStates.push(firstFrame);
+        return firstFrame;
+
+    }
+
+    public setAll(state: CellState) {
+        console.log('grid reset');
+        const newFrame = this.rows.map((row) => row.map((cell) => cell.set(state ? state :
+            Math.random() < 0.5 ? CellState.alive : CellState.dead)));
+        this.frameIndex = 0;
+        this.frameStates = new Array();
+        this.frameStates.push(newFrame);
+        return newFrame;
     }
 
     public getFrameIndex() {

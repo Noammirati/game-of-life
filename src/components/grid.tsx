@@ -16,6 +16,12 @@ export default function Grid() {
         setGrid(g);
     }, []);
 
+    function update() {
+        console.log("UPDATE");
+        setCells(grid.update());
+        console.log("UPDATED")
+    }
+
     function play() {
         if (!intervalID) {
             console.log("PLAY");
@@ -28,25 +34,40 @@ export default function Grid() {
         }
     }
 
-
-
-    function update() {
-        console.log("UPDATE");
-        setCells(grid.update());;
-        console.log("UPDATED")
+    function reset() {
+        console.log("RESET")
+        setCells(grid.reset());
+        console.log("RESETED")
     }
+
+    function clear() {
+        console.log("CLEAR")
+        setCells(grid.setAll(CellState.dead));
+        console.log("CLEARED")
+    }
+
+    function fill() {
+        console.log("FILL")
+        setCells(grid.setAll(CellState.alive));
+        console.log("FILLED")
+    }
+
+    function randomize() {
+        console.log("RANDOMIZE")
+        setCells(grid.setAll());
+        console.log("RANDOMIZED")
+    }
+
+
 
     return (
         <>
-            {/* <button onClick={(e) => clear()}>Clear</button>
+            <button onClick={(e) => clear()}>Clear</button>
             <button onClick={(e) => fill()}>Fill</button>
             <button onClick={(e) => randomize()}>Randomize</button>
-            
-            
-             */}
-
             <button onClick={(e) => update()}>Update</button>
             <button onClick={(e) => play()}>Play</button>
+            <button onClick={(e) => reset()}>Reset</button>
 
             <div className='grid'>
                 {cells ? cells.map((row: CellState[], rowIndex: number) => {

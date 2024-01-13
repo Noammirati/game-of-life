@@ -15,9 +15,17 @@ export default class LogicalCell {
         this.neighbors = new Array<LogicalCell>;
     }
 
-    public reset(state: CellState) {
+    public set(state: CellState) {
         this.states = new Array<CellState>;
         this.states.push(state);
+        return state;
+    }
+
+    public reset() {
+        const firstState = this.states[0];
+        this.states = new Array<CellState>;
+        this.states.push(firstState);
+        return firstState;
     }
 
     public computeNextState() {
