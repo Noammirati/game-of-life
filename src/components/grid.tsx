@@ -1,11 +1,13 @@
 import Cell from './cell';
 import { useEffect, useState } from 'react';
-import { CellState } from '../logic/logicalHelpers';
-import LogicalGrid from '../logic/logicalGrid';
+import { CellState } from '@/src/logic/logicalHelpers';
+import LogicalGrid from '@/src/logic/logicalGrid';
+import Button from '@/components/ui/buttons/button';
+import { NextButton, PlayButton, PauseButton, ResetButton } from '@/components/ui/buttons/iconButton';
 
-export default function Grid() {
+export default function Grid(this: any) {
     const [intervalID, setIntervalID]: [null, Function] = useState(null);
-    //const [frameIndex, setframeIndex]: [number, Function] = useState(0);
+    const isRunning = () => { return intervalID !== null };
 
     const [grid, setGrid]: [any, Function] = useState(null);
     const [cells, setCells]: [any, Function] = useState([])
@@ -17,57 +19,71 @@ export default function Grid() {
     }, []);
 
     function update() {
-        console.log("UPDATE");
+        //console.log("UPDATE");
         setCells(grid.update());
-        console.log("UPDATED")
+        //console.log("UPDATED")
+    }
+
+    function pause() {
+        if (intervalID) {
+            clearInterval(intervalID);
+            setIntervalID(null);
+        }
     }
 
     function play() {
         if (!intervalID) {
-            console.log("PLAY");
+            //console.log("PLAY");
             let int = setInterval(update, 300);
             setIntervalID(int)
         } else {
-            console.log("STOP PLAY");
+            //console.log("STOP PLAY");
             clearInterval(intervalID);
             setIntervalID(null);
         }
     }
 
     function reset() {
-        console.log("RESET")
+        //console.log("RESET")
+        pause();
         setCells(grid.reset());
-        console.log("RESETED")
+        //console.log("RESETED")
     }
 
     function clear() {
-        console.log("CLEAR")
+        //console.log("CLEAR")
+        pause();
         setCells(grid.setAll(CellState.dead));
-        console.log("CLEARED")
+        //console.log("CLEARED")
     }
 
     function fill() {
-        console.log("FILL")
+        //console.log("FILL")
+        pause();
         setCells(grid.setAll(CellState.alive));
-        console.log("FILLED")
+        //console.log("FILLED")
     }
 
     function randomize() {
-        console.log("RANDOMIZE")
-        setCells(grid.setAll());
-        console.log("RANDOMIZED")
+        //console.log("RANDOMIZE")
+        pause();
+        if (grid) setCells(grid.setAll());
+        //console.log("RANDOMIZED")
     }
-
-
 
     return (
         <>
-            <button onClick={(e) => clear()}>Clear</button>
-            <button onClick={(e) => fill()}>Fill</button>
-            <button onClick={(e) => randomize()}>Randomize</button>
-            <button onClick={(e) => update()}>Update</button>
-            <button onClick={(e) => play()}>Play</button>
-            <button onClick={(e) => reset()}>Reset</button>
+            <div>
+                <Button label="Randomize" action={() => randomize()} />
+                <Button label="Fill" action={() => fill()} />
+                <Button label="Clear" action={() => clear()} />
+
+                <div>
+                    <ResetButton action={() => reset()} />
+                    {isRunning() ? <PauseButton action={() => play()} /> : <PlayButton action={() => play()} />}
+                    <NextButton action={() => update()} />
+                </div>
+            </div>
 
             <div className='grid'>
                 {cells ? cells.map((row: CellState[], rowIndex: number) => {
@@ -81,32 +97,3 @@ export default function Grid() {
         </>
     )
 }
-
-// let height = frame.getGrid().getHeight();
-//let width = frame.getGrid().getWidth();
-
-// function update() {
-//     console.log("UPDATE");
-//     setFrame(frame.getNext())
-//     frame.next();
-// }
-
-
-
-// function randomize() {
-//     console.log("RANDOMIZE");
-//     setGrid(grid.randomize());
-// }
-
-// function clear() {
-//     console.log("CLEAR");
-//     let tgrid = grid.clear();
-//     console.log("HERE", tgrid)
-//     setGrid(tgrid);
-//     console.log("THERE", grid)
-// }
-
-// function fill() {
-//     console.log("Fill");
-//     setGrid(grid.fill());
-// }

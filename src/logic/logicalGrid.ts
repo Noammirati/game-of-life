@@ -9,7 +9,7 @@ export default class LogicalGrid {
     private frameStates: Array<Array<Array<CellState>>>;
 
     private constructor() {
-        console.log("Constructor grid")
+        //console.log("Constructor grid")
         this.cells = new Map();
         this.rows = new Array();
         this.frameIndex = 0;
@@ -42,7 +42,7 @@ export default class LogicalGrid {
     }
 
     public update() {
-        console.log("grid update");
+        //console.log("grid update");
         const nextFrame = this.rows.map((row) => row.map((cell) => cell.computeNextState()));
         this.frameStates.push(nextFrame);
         this.frameIndex++;
@@ -61,7 +61,7 @@ export default class LogicalGrid {
     }
 
     public setAll(state: CellState) {
-        console.log('grid reset');
+        //console.log('grid reset');
         const newFrame = this.rows.map((row) => row.map((cell) => cell.set(state ? state :
             Math.random() < 0.5 ? CellState.alive : CellState.dead)));
         this.frameIndex = 0;

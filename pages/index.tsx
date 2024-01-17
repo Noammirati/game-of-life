@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Pixelify_Sans } from 'next/font/google'
 import Grid from '@/src/components/grid'
 
-const inter = Inter({ subsets: ['latin'] })
+const pixel = Pixelify_Sans({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main>
+    <main className={pixel.className}>
       <Grid />
     </main>
   )
